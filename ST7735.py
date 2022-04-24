@@ -71,9 +71,9 @@ class ST7735():
 	def __init__(self, spi, rst=4, ce=5, dc=16, offset=0, c_mode='RGB'):
 		self._rst = Pin(rst, Pin.OUT)   	# 4
 		self._ce = Pin(ce, Pin.OUT)    		# 5
-		self._ce.high()
+		self._ce.value(1)
 		self._dc = Pin(dc, Pin.OUT)    		# 16
-		self._dc.high()	
+		self._dc.value(1)	
 		self._offset = offset
 		self._x = 0
 		self._y = 0
@@ -92,25 +92,25 @@ class ST7735():
 	def command(self,c):
 		b = bytearray(1)
 		b[0] = c
-		self._dc.low()
-		self._ce.low()
+		self._dc.value(0)
+		self._ce.value(0)
 		self._spi.write(b)     # write 1 byte on MOSI
-		self._ce.high()
+		self._ce.value(1)
 		# print ('C {0:2x}'.format(c))
 
 	def data(self, c):
 		b = bytearray(1)
 		b[0] = c
-		self._dc.high()
-		self._ce.low()
+		self._dc.value(1)
+		self._ce.value(0)
 		self._spi.write(b)     # write 1 byte on MOSI
-		self._ce.high()
+		self._ce.value(1)
 		# print ('D {0:2x}'.format(c))
 
 	def reset(self):
-		self._rst.low()
+		self._rst.value(0)
 		time.sleep_ms(50)        # sleep for 50 milliseconds
-		self._rst.high()
+		self._rst.value(1)
 		time.sleep_ms(50)        # sleep for 50 milliseconds
 
 	# begin
@@ -223,10 +223,10 @@ class ST7735():
 
 		a=(color>>8)+((color & 0xff)<<8) # reverse bytes
 		b=bytearray(a.to_bytes(2))
-		self._dc.high()
-		self._ce.low()
+		self._dc.value(1)
+		self._ce.value(0)
 		self._spi.write(b)     # write 1 byte on MOSI
-		self._ce.high()
+		self._ce.value(1)
 		
 	def draw_block(self,x,y,w,h,color):
 		size = w * h
@@ -246,10 +246,10 @@ class ST7735():
 		if (y + h - 1) >= self._height:
 			h = self._height - y
 		self.set_addr_window(x,y,x+w-1,y+h-1)
-		self._dc.high()
-		self._ce.low()
+		self._dc.value(1)
+		self._ce.value(0)
 		self._spi.write(buffer)     # write bytes on MOSI
-		self._ce.high()
+		self._ce.value(1)
 		
 	def fill_screen(self,color):
 		self.draw_block(0,0,self._width,self._height,color)
