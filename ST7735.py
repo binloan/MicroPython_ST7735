@@ -6,6 +6,7 @@
 from machine import Pin, SPI
 import time
 import math
+import sys
 
 #constants
 DELAY = 0x80
@@ -222,7 +223,7 @@ class ST7735():
 		self.set_addr_window(x,y,x+1,y+1)
 
 		a=(color>>8)+((color & 0xff)<<8) # reverse bytes
-		b=bytearray(a.to_bytes(2))
+		b=bytearray(a.to_bytes(2, sys.byteorder))
 		self._dc.value(1)
 		self._ce.value(0)
 		self._spi.write(b)     # write 1 byte on MOSI

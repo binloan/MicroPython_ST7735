@@ -1,5 +1,5 @@
 def bmp(fname, display, x, y, color=0):
-	f=open(fname,'rb')
+	f=open(fname,'r')
 	b=bytearray(54)
 	b=f.read(54)
 	# header check
@@ -41,6 +41,6 @@ def bmp(fname, display, x, y, color=0):
 					if buffer[index*3]!=0xff:
 						display.pixel(x,y,1)
 			if color:
-				display.draw_bmp(x,y1,width,1,d_buffer);
+				display.draw_bmp(x,y1,width,1,d_buffer)
 	f.close()
 
