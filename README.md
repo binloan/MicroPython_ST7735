@@ -1,4 +1,6 @@
-# MicroPython_ST7735S
+# MicroPython_ST7735S for WiPy 3.0
+
+Original PyBoard version taken from: https://github.com/AnthonyKNorman/MicroPython_ST7735
 
 Last update added support for a cheap 128x128 TFT display.
 offset - offsets the display by that number of pixels horizontally and vertically
