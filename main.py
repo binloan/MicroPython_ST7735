@@ -1,3 +1,4 @@
+# Display size X: 128 Y:160
 import ST7735
 import lcd_gfx
 from machine import SPI, Pin
@@ -19,6 +20,9 @@ d.fill_screen(d.rgb_to_565(0,0,0))
 x = int(d._width/2)
 y = int(d._height/2)
 r = int(min(x,y)/2)
-d.fill_screen(d.rgb_to_565(255,255,255))
-color = d.rgb_to_565(0,36,125)
-lcd_gfx.drawfillCircle(x,y,r,d,color)
+
+lcd_gfx.drawLine(0,0,d._width/2,0,d,d.rgb_to_565(255,255,255))
+d.set_rotation(1)
+d._bground = d.rgb_to_565(0,0,0)
+d._color = d.rgb_to_565(255,255,255)
+d.p_string(0,0,'Hello World!')

@@ -257,7 +257,7 @@ class ST7735():
 			
 	def p_char(self, x, y, ch):
 		fp = (ord(ch)-0x20) * 5
-		f = open('font5x7.fnt','rb')
+		f = open('font5x7.py','rb')
 		f.seek(fp)
 		b = f.read(5)
 		char_buf=bytearray(b)
